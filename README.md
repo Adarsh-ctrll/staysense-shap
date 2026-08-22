@@ -40,6 +40,7 @@ The frontend is a static HTML/CSS/JS app served directly by FastAPI, so there's 
 ## Model
 
 The classifier is trained on the [NYC Airbnb Open Data](https://www.kaggle.com/datasets/dgomonov/new-york-city-airbnb-open-data) dataset. Training, feature engineering, and evaluation are documented in [`nyc_airbnb_room_type_predictor.ipynb`](./nyc_airbnb_room_type_predictor.ipynb).
+Dashboard in [`Airbnb Nyc Room PredictionDashboard.pbix`](./Airbnb Nyc Room PredictionDashboard.pbix)
 
 - **Features:** `latitude`, `longitude`, `price`, `minimum_nights`, `number_of_reviews`, `reviews_per_month`, `calculated_host_listings_count`, `availability_365`, `neighbourhood_group`, `neighbourhood`
 - **Class imbalance:** handled with SMOTE during training, since Shared Room listings are a small minority of the dataset
