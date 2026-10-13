@@ -107,13 +107,26 @@ def explain_row(model, row: pd.DataFrame, top_n: int = 8) -> dict:
 
     # Group one-hot columns back to the original 10 user-facing features.
     grouped: dict[str, dict] = {}
+    
     original_values = row.iloc[0].to_dict()
     for idx, transformed_name in enumerate(names):
-        if transformed_name.startswith("num__"):
-            original = transformed_name[len("num__"):]
+        # new----
+        # if transformed_name.startswith("num__"):
+        #     original = transformed_name[len("num__"):]
+        # elif transformed_name.startswith("cat__"):
+        #     rest = transformed_name[len("cat__"):]
+        #     original = rest.split("_", 1)[0]
+        # else:
+        #     original = transformed_name.split("__", 1)[-1]
+        # -----
+        if transformed_name.startswith(("num__", "geo__")):
+            original = transformed_name.split("__", 1)[1]
         elif transformed_name.startswith("cat__"):
             rest = transformed_name[len("cat__"):]
-            original = rest.split("_", 1)[0]
+            original = next(
+                c for c in sorted(CATEGORICAL_LABELS, key=len, reverse=True)
+                if rest.startswith(c + "_")
+            )
         else:
             original = transformed_name.split("__", 1)[-1]
 
